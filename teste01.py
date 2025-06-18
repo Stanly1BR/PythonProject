@@ -1,11 +1,8 @@
-soma = 10 + 20
+notas = []
 
-print(soma)
+for c in range(0, 2):
+    nota = int(input("Qual sua nota? "))
+    notas.append(nota)  # adiciona a nota na lista
 
-for i in range(30):
-    print(i)
-
-    if(i == 8):
-        break
-    else:
-        print("Teste")
+media = sum(notas)  / len(notas)
+print(f"A média das notas é: {media}")
