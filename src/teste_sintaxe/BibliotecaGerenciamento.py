@@ -1,4 +1,4 @@
-def menu():
+def menu() -> None:
     print("=======================")
     print("========MENU============")
     print("========================")
@@ -8,7 +8,7 @@ def menu():
     print("========================")
     print("Digite a opção:")
 
-def menuUsuario():
+def menu_usuario() -> None:
     print("=======================")
     print("======MENU USUARIO====")
     print("========================")
@@ -19,7 +19,7 @@ def menuUsuario():
     print("========================")
     print("Digite a opção:")
 
-def menuLivro():
+def menu_livro() -> None:
     print("=======================")
     print("======MENU LIVRO======")
     print("========================")
@@ -33,7 +33,7 @@ def menuLivro():
 livros = list()
 usuarios = list()
 livro = dict()
-usuarios = dict()
+usuario = dict()
 
 while True:
 
@@ -44,25 +44,41 @@ while True:
         break
 
     if opcao == 1:
-        menuUsuario()
+        menu_usuario()
         opcaoUsuario = int(input())
 
         if opcaoUsuario == 1:
             print("Cadastrando usuario")
             print("========================")
+            usuario["nome"] = str(input("Digite o nome de usuario: "))
+            usuario["telefone"] = str(input("Digite o telefone de usuario: "))
+            usuarios.append(usuario.copy())
 
         elif opcaoUsuario == 2:
             print("Listando usuarios")
             print("========================")
+            for usuario in usuarios:
+                print(usuario)
 
         elif opcaoUsuario == 3:
             print("Excluindo usuario")
             print("========================")
+            nome = str(input("Qual o nome do usuario que deseja excluir?"))
+
+            encontrou = False
+            for usuario in usuarios:
+                if usuario["nome"] == nome:
+                    usuario.remove(usuario)
+                    print("Usuario excluido com sucesso!")
+                    encontrou = True
+                    break
+            if not encontrou:
+                print("Usuario não encontrado no sistema")
 
 
 
     elif opcao == 2:
-        menuLivro()
+        menu_livro()
         opcaoLivro = int(input())
 
         if opcaoLivro == 1:
