@@ -1,5 +1,3 @@
-
-
 def menu():
     print("=======================")
     print("========MENU============")
@@ -17,6 +15,9 @@ def menuUsuario():
     print("1 - Cadastrar")
     print("2 - Listar")
     print("3 - Excluir")
+    print("4 - Voltar")
+    print("========================")
+    print("Digite a opção:")
 
 def menuLivro():
     print("=======================")
@@ -25,15 +26,16 @@ def menuLivro():
     print("1 - Cadastrar")
     print("2 - Listar")
     print("3 - Excluir")
+    print("4 - Voltar")
+    print("========================")
+    print("Digite a opção:")
+
+livros = list()
+usuarios = list()
+livro = dict()
+usuarios = dict()
 
 while True:
-
-    livros = [{
-        "Titulo": "O livro 1",
-        "Autor":"",
-        "Data_publi":""
-    }]
-    usuarios = []
 
     menu()
     opcao = int(input())
@@ -47,10 +49,15 @@ while True:
 
         if opcaoUsuario == 1:
             print("Cadastrando usuario")
+            print("========================")
+
         elif opcaoUsuario == 2:
             print("Listando usuarios")
+            print("========================")
+
         elif opcaoUsuario == 3:
             print("Excluindo usuario")
+            print("========================")
 
 
 
@@ -58,3 +65,31 @@ while True:
         menuLivro()
         opcaoLivro = int(input())
 
+        if opcaoLivro == 1:
+            print("Cadastrando livro")
+            livro["titulo"] = str(input("Digite o titulo do livro: "))
+            livro["autor"] = str(input("Digite o autor do livro: "))
+            livro["dataPublicacao"] = str(input("Digite a data de publicação: "))
+            livros.append(livro.copy())
+
+        elif opcaoLivro == 2:
+            print("Listando livros")
+            print("========================")
+            for livro in livros:
+                print(livro)
+
+        elif opcaoLivro == 3:
+            print("Excluindo livro")
+            print("========================")
+            titulo = str(input("Qual o titulo do livro que deseja excluir?"))
+
+            encontrou = False
+            for livro in livros:
+                if livro["titulo"] == titulo:
+                    livros.remove(livro)
+                    encontrou = True
+                    print("Livro excluido com sucesso!")
+                    break
+
+            if not encontrou:
+                print("Livro não encontrado no sistema")
