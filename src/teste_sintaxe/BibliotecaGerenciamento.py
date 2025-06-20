@@ -1,3 +1,6 @@
+import os
+
+
 def menu() -> None:
     print("=======================")
     print("========MENU============")
@@ -30,6 +33,34 @@ def menu_livro() -> None:
     print("========================")
     print("Digite a opção:")
 
+
+
+def limpar_tela():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+
+def cadastrar(lista, campos):
+    item = {}
+    for campo in campos:
+        item[campo] = input(f"Digite o {campo}: ")
+    lista.append(item.copy())
+
+def listar(lista):
+    for item in lista:
+        print(item)
+
+def excluir(lista, buscarpor, chave):
+
+    encontrado = False
+    for item in lista:
+        if item[chave] == buscarpor:
+            lista.remove(item)
+            print("Excluido com sucesso!")
+            encontrado = True
+            break
+    if not encontrado:
+        print("Item não encontrado no sistema")
+
 livros = list()
 usuarios = list()
 livro = dict()
@@ -37,6 +68,7 @@ usuario = dict()
 
 while True:
 
+    limpar_tela()
     menu()
     opcao = 0
 
@@ -53,6 +85,7 @@ while True:
 
     if opcao == 1:
         try:
+            limpar_tela()
             menu_usuario()
             opcaoUsuario = int(input())
             if opcaoUsuario < 1 or opcaoUsuario > 4:
@@ -62,30 +95,17 @@ while True:
             if opcaoUsuario == 1:
                 print("Cadastrando usuario")
                 print("========================")
-                usuario["nome"] = str(input("Digite o nome de usuario: "))
-                usuario["telefone"] = str(input("Digite o telefone de usuario: "))
-                usuarios.append(usuario.copy())
+                cadastrar(usuarios, ["nome", "email", "senha"])
 
             elif opcaoUsuario == 2:
                 print("Listando usuarios")
                 print("========================")
-                for usuario in usuarios:
-                    print(usuario)
+                listar(usuarios)
 
             elif opcaoUsuario == 3:
                 print("Excluindo usuario")
                 print("========================")
-                nome = str(input("Qual o nome do usuario que deseja excluir?"))
-
-                encontrou = False
-                for usuario in usuarios:
-                    if usuario["nome"] == nome:
-                        usuarios.remove(usuario)
-                        print("Usuario excluido com sucesso!")
-                        encontrou = True
-                        break
-                if not encontrou:
-                    print("Usuario não encontrado no sistema")
+                excluir(usuarios, str(input("Qual o nome do usuario que deseja excluir?")), "nome")
 
         except ValueError:
             print("Por favor digite uma opção valida, conforme o menu")
@@ -96,6 +116,7 @@ while True:
 
     elif opcao == 2:
         try:
+            limpar_tela()
             menu_livro()
             opcaoLivro = int(input())
             if opcaoLivro < 1 or opcaoLivro > 4:
@@ -104,32 +125,18 @@ while True:
 
             if opcaoLivro == 1:
                 print("Cadastrando livro")
-                livro["titulo"] = str(input("Digite o titulo do livro: "))
-                livro["autor"] = str(input("Digite o autor do livro: "))
-                livro["dataPublicacao"] = str(input("Digite a data de publicação: "))
-                livros.append(livro.copy())
+                print("========================")
+                cadastrar(livros, ["titulo", "autor", "genero"])
 
             elif opcaoLivro == 2:
                 print("Listando livros")
                 print("========================")
-                for livro in livros:
-                    print(livro)
+                listar(livros)
 
             elif opcaoLivro == 3:
                 print("Excluindo livro")
                 print("========================")
-                titulo = str(input("Qual o titulo do livro que deseja excluir?"))
-
-                encontrou = False
-                for livro in livros:
-                    if livro["titulo"] == titulo:
-                        livros.remove(livro)
-                        encontrou = True
-                        print("Livro excluido com sucesso!")
-                        break
-
-                if not encontrou:
-                    print("Livro não encontrado no sistema")
+                excluir(livros, str(input("Qual o titulo do livro que deseja excluir?")), "titulo")
 
         except ValueError:
             print("Por favor digite uma opção valida, conforme o menu")
